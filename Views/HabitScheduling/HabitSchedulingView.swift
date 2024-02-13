@@ -10,23 +10,29 @@ import SwiftUI
 struct HabitSchedulingView: View {
   // MARK: Private Properties
   @Environment(\.dismiss) private var dismiss: DismissAction
-  @State private var selectedDay: String?
+  @State private var selectedValue: Weekdays?
 
   // MARK: Body
   var body: some View {
     VStack(spacing: Constants.Dimensions.medium) {
       GroupBox("Schedule habit") {
-        WeekPicker(selected: $selectedDay)
+        InlinePicker(values: Weekdays.allCases, selected: $selectedValue)
       }
       .groupBoxStyle(GroupBoxHabitStyle())
 
       Spacer(minLength: 0)
 
       Group {
-        if let selectedDay {
-          Text("This habit will take place every \(selectedDay).")
+        if let selectedValue {
+          Text("This habit will take place every ")
+          +
+          Text(selectedValue.rawValue)
+            .foregroundColor(Color.accentColor)
+            .fontWeight(.semibold)
+          +
+          Text(".")
         } else {
-          Text("Select the day you want.")
+          Text("When will the habit be scheduled ?")
         }
       }
       .font(.callout)
@@ -46,7 +52,7 @@ struct HabitSchedulingView: View {
         HapticHelper.success()
       }
       .buttonStyle(ButtonHabitStyle())
-      .disabled(selectedDay == nil)
+      .disabled(selectedValue == nil)
     }
     .padding(.vertical, Constants.Dimensions.large)
     .padding(.horizontal, Constants.Dimensions.medium)
@@ -56,5 +62,5 @@ struct HabitSchedulingView: View {
 }
 
 #Preview {
-  HabitSchedulingView()
+  HabitSchedulingFactory.createView()
 }
