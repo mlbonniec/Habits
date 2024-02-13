@@ -9,7 +9,7 @@ import SwiftUI
 
 /// The protocol used for the InlinePicker component.
 /// Values displayed in the picker must conform to this protocol.
-protocol InlinePickerValue: RawRepresentable<String>, CaseIterable, Equatable {
+protocol InlinePickerValue: RawRepresentable<String>, CaseIterable, Equatable, Hashable {
   /// A short string of the value, used to be displayed in the picker.
   var short: String { get }
 }
@@ -17,28 +17,32 @@ protocol InlinePickerValue: RawRepresentable<String>, CaseIterable, Equatable {
 struct InlinePicker<Value: InlinePickerValue>: View {
   // MARK: Properties
   let values: [Value]
-  @Binding var selected: Value?
+  @Binding var selected: Set<Value>
 
   // MARK: Body
   var body: some View {
-    LazyVGrid(
+    return LazyVGrid(
       columns: Array(repeating: GridItem(.flexible()), count: values.count),
       spacing: Constants.Dimensions.small
     ) {
       ForEach(values, id: \.rawValue) { value in
         Button(action: {
           withAnimation {
-            selected = selected == value ? nil : value
+            if selected.contains(value) {
+              selected.remove(value)
+            } else {
+              selected.insert(value)
+            }
           }
           HapticHelper.selectionChanged()
         }) {
-          getValueColor(isActive: selected == value)
+          getValueColor(isActive: selected.contains(value))
             .aspectRatio(1, contentMode: .fit)
             .overlay {
               Text(value.short)
                 .font(.caption)
                 .fontWeight(.semibold)
-                .foregroundStyle(selected == value ? .white : .black)
+                .foregroundStyle(selected.contains(value) ? .white : .black)
             }
             .clipShape(RoundedRectangle(cornerRadius: 15))
             .shadow(color: .black.opacity(0.05), radius: 15, y: 10)
@@ -83,7 +87,7 @@ struct InlinePicker<Value: InlinePickerValue>: View {
 
   return InlinePicker(
     values: WeekdaysDemo.allCases,
-    selected: .constant(.thursday)
+    selected: .constant(Set([.thursday, .sunday]))
   )
   .padding()
 }

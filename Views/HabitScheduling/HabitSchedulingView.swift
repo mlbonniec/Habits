@@ -10,7 +10,7 @@ import SwiftUI
 struct HabitSchedulingView: View {
   // MARK: Private Properties
   @Environment(\.dismiss) private var dismiss: DismissAction
-  @State private var selectedValue: Weekdays?
+  @State private var selectedValue: Set<Weekdays> = []
 
   // MARK: Body
   var body: some View {
@@ -20,39 +20,20 @@ struct HabitSchedulingView: View {
       }
       .groupBoxStyle(GroupBoxHabitStyle())
 
-      Spacer(minLength: 0)
-
-      Group {
-        if let selectedValue {
-          Text("This habit will take place every ")
-          +
-          Text(selectedValue.rawValue)
-            .foregroundColor(Color.accentColor)
-            .fontWeight(.semibold)
-          +
-          Text(".")
-        } else {
-          Text("When will the habit be scheduled ?")
-        }
-      }
-      .font(.callout)
-      .foregroundStyle(.gray)
-
       HabitsListRowView(
         systemImage: HabitsMapper.mock().systemImage,
         label: HabitsMapper.mock().label,
         description: HabitsMapper.mock().description
       )
       .hideChevron()
-
-      Spacer(minLength: 0)
+      .frame(maxHeight: .infinity)
 
       Button("Schedule") {
         dismiss.callAsFunction()
         HapticHelper.success()
       }
       .buttonStyle(ButtonHabitStyle())
-      .disabled(selectedValue == nil)
+      .disabled(selectedValue.isEmpty)
     }
     .padding(.vertical, Constants.Dimensions.large)
     .padding(.horizontal, Constants.Dimensions.medium)
