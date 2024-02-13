@@ -8,29 +8,22 @@
 import SwiftUI
 
 struct BackgroundGradientModifier: ViewModifier {
-  // MARK: Properties
-  @State private var size: CGSize = .zero
-
   // MARK: Body
   func body(content: Content) -> some View {
-    content
-      .background(
-        GeometryReader { proxy in
-          Color.clear
-            .onAppear { size = proxy.size }
-        }
-      )
-      .background(
-        RadialGradient(
-          gradient: Gradient(colors: [
-            .accentColor.opacity(0.15),
-            .white
-          ]),
-          center: .center,
-          startRadius: 0,
-          endRadius: size.width
+    GeometryReader { proxy in
+      content
+        .background(
+          RadialGradient(
+            gradient: Gradient(colors: [
+              .accentColor.opacity(0.15),
+              .white
+            ]),
+            center: .center,
+            startRadius: 0,
+            endRadius: proxy.size.width
+          )
         )
-      )
+    }
   }
 }
 
