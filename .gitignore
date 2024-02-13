@@ -1,0 +1,8 @@
+# OS
+.DS_Store
+
+# Xcode
+.swiftpm
+
+# Generated files
+Package.swift
