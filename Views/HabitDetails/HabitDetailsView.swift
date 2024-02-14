@@ -52,7 +52,7 @@ struct HabitDetailsView: View {
     GroupBox("Habit") {
       HabitsListRowView(
         systemImage: habit.systemImage,
-        label: habit.label,
+        label: habit.id.rawValue,
         description: habit.description
       )
       .hideChevron()

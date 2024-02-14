@@ -29,7 +29,7 @@ struct HabitsHistoryView: View {
     List(data) { habit in
       HabitsListRowView(
         systemImage: habit.systemImage,
-        label: habit.label,
+        label: habit.id.rawValue,
         description: Date().formatted()
       )
       .hideChevron()

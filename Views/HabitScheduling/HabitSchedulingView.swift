@@ -22,7 +22,7 @@ struct HabitSchedulingView: View {
 
       HabitsListRowView(
         systemImage: HabitsMapper.mock().systemImage,
-        label: HabitsMapper.mock().label,
+        label: HabitsMapper.mock().id.rawValue,
         description: HabitsMapper.mock().description
       )
       .hideChevron()

@@ -5,9 +5,9 @@
 //  Created by Mathis Le Bonniec on 12/02/2024.
 //
 
-enum HabitsIds {
-  case doingGrocery
-  case takePublicTransportation
+enum HabitsIds: String {
+  case doingGrocery = "Doing grocery"
+  case takePublicTransportation = "Take a public transportation"
 
   enum Steps {
     // MARK: doingGrocery

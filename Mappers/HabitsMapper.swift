@@ -11,7 +11,6 @@ enum HabitsMapper {
       HabitsModel(
         id: .doingGrocery,
         systemImage: "bag.fill",
-        label: "Doing grocery",
         description: nil,
         steps: [
           HabitsModel.Step(
@@ -44,17 +43,8 @@ enum HabitsMapper {
       HabitsModel(
         id: .takePublicTransportation,
         systemImage: "bus.fill",
-        label: "Take a public transportation",
         description: "Bus, metro, tramway…",
         steps: [
-          /*
-           case takePublicTransportationHeadForAStop
-           case takePublicTransportationLookForPlanAndSchedule
-           case takePublicTransportationWaitFor
-           case takePublicTransportationGetInto
-           case takePublicTransportationPay
-           case takePublicTransportationGetOff
-           */
           HabitsModel.Step(
             id: .takePublicTransportationHeadForAStop,
             label: "Head for a stop",
@@ -94,7 +84,6 @@ enum HabitsMapper {
     HabitsModel(
       id: .doingGrocery,
       systemImage: "bag.fill",
-      label: "Doing grocery",
       description: "Learn how to do groceries efficiency.",
       steps: [
         HabitsModel.Step(id: .doingGroceryList, label: "Make a list"),

@@ -14,9 +14,6 @@ struct HabitsModel: Identifiable {
   /// An system icon from the SF Symbols
   let systemImage: String
 
-  /// The habit main name
-  let label: String
-
   /// An optional description
   var description: String?
 
