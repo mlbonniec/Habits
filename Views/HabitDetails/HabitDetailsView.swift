@@ -96,15 +96,12 @@ struct HabitDetailsView: View {
   private var ActionsView: some View {
     GroupBox("Actions") {
       Button("Mark as completed") {
-        // HapticHelper.success()
-
         try? realm.write {
-          let model: HabitsHistoryModel = HabitsHistoryModel()
-
-          model.id = habit.id
-          model.date = Date()
+          let model: HabitsHistoryModel = HabitsHistoryModel(id: habit.id)
 
           realm.add(model)
+
+          HapticHelper.success()
         }
 
         dismiss()
