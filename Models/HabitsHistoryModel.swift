@@ -12,7 +12,8 @@ class HabitsHistoryModel: Object, Identifiable {
   @Persisted var id: HabitsIds
   @Persisted var date: Date
 
-  init(id: HabitsIds) {
+  convenience init(id: HabitsIds) {
+    self.init()
     self.id = id
     self.date = Date.now
   }
