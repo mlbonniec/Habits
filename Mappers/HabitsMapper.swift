@@ -80,6 +80,10 @@ enum HabitsMapper {
     ]
   }
 
+  static func mapById(id: HabitsIds) -> HabitsModel? {
+    return self.map().first { $0.id == id }
+  }
+
   static func mock() -> HabitsModel {
     HabitsModel(
       id: .doingGrocery,

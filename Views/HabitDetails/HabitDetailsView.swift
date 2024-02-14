@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct HabitDetailsView: View {
   // MARK: Properties
@@ -15,6 +16,7 @@ struct HabitDetailsView: View {
   @Environment(\.dismiss) private var dismiss: DismissAction
   @State private var steps: [Bool]
   @State private var showScheduling: Bool = false
+  @Environment(\.realm) private var realm: Realm
 
   init(habit: HabitsModel) {
     self.habit = habit
@@ -94,7 +96,17 @@ struct HabitDetailsView: View {
   private var ActionsView: some View {
     GroupBox("Actions") {
       Button("Mark as completed") {
-        HapticHelper.success()
+        // HapticHelper.success()
+
+        try? realm.write {
+          let model: HabitsHistoryModel = HabitsHistoryModel()
+
+          model.id = habit.id
+          model.date = Date()
+
+          realm.add(model)
+        }
+
         dismiss()
       }
       .buttonStyle(ButtonHabitStyle())

@@ -5,17 +5,17 @@
 //  Created by Mathis Le Bonniec on 12/02/2024.
 //
 
+import RealmSwift
 import SwiftUI
 
 struct HabitsHistoryView: View {
-  // MARK: Properties
-  // TODO: Replace with real data
-  private let data: [HabitsModel] = HabitsMapper.map()
+  // MARK: Reactive Properties
+  @ObservedResults(HabitsHistoryModel.self) private var history: Results<HabitsHistoryModel>
 
   // MARK: Body
   var body: some View {
     Group {
-      if data.isEmpty {
+      if history.isEmpty {
         HabitsHistoryNoDataView()
       } else {
         HistoryList
@@ -26,14 +26,16 @@ struct HabitsHistoryView: View {
 
   // MARK: Private Views
   private var HistoryList: some View {
-    List(data) { habit in
-      HabitsListRowView(
-        systemImage: habit.systemImage,
-        label: habit.id.rawValue,
-        description: Date().formatted()
-      )
-      .hideChevron()
-      .habitListRow()
+    List(history) { habit in
+      if let item = HabitsMapper.mapById(id: habit.id) {
+        HabitsListRowView(
+          systemImage: item.systemImage,
+          label: habit.id.rawValue,
+          description: habit.date.formatted()
+        )
+        .hideChevron()
+        .habitListRow()
+      }
     }
     .habitList()
     .backgroundGradient()

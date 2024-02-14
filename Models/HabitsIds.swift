@@ -5,7 +5,9 @@
 //  Created by Mathis Le Bonniec on 12/02/2024.
 //
 
-enum HabitsIds: String {
+import RealmSwift
+
+enum HabitsIds: String, PersistableEnum {
   case doingGrocery = "Doing grocery"
   case takePublicTransportation = "Take a public transportation"
 

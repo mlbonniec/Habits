@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct HabitsApp: App {
-  // MARK: Properties
+  // MARK: Private Properties
   @State private var activeTab: AppTabView = .habits
 
   // MARK: Body

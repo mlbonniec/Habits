@@ -5,8 +5,10 @@
 //  Created by Mathis Le Bonniec on 13/02/2024.
 //
 
-import SwiftData
+import Foundation
+import RealmSwift
 
-class HabitsHistoryModel {
-
+class HabitsHistoryModel: Object, Identifiable {
+  @Persisted var id: HabitsIds
+  @Persisted var date: Date
 }
