@@ -15,9 +15,28 @@ protocol InlinePickerValue: RawRepresentable<String>, CaseIterable, Equatable, H
 }
 
 struct InlinePicker<Value: InlinePickerValue>: View {
-  // MARK: Properties
-  let values: [Value]
-  @Binding var selected: Set<Value>
+  // MARK: Private Properties
+  private let values: [Value]
+  private let handlingMultipleValues: Bool
+
+  // MARK: Reactive Properties
+  @Binding private var selectedValues: Set<Value>
+  @Binding private var selectedValue: Value?
+
+  // MARK: Lifecycle
+  init(values: [Value], selected: Binding<Set<Value>>) {
+    self.handlingMultipleValues = true
+    self.values = values
+    self._selectedValue = .constant(nil)
+    self._selectedValues = selected
+  }
+
+  init(values: [Value], selected: Binding<Value?>) {
+    self.handlingMultipleValues = false
+    self.values = values
+    self._selectedValue = selected
+    self._selectedValues = .constant([])
+  }
 
   // MARK: Body
   var body: some View {
@@ -27,22 +46,15 @@ struct InlinePicker<Value: InlinePickerValue>: View {
     ) {
       ForEach(values, id: \.rawValue) { value in
         Button(action: {
-          withAnimation {
-            if selected.contains(value) {
-              selected.remove(value)
-            } else {
-              selected.insert(value)
-            }
-          }
-          HapticHelper.selectionChanged()
+          didClickDay(value: value)
         }) {
-          getValueColor(isActive: selected.contains(value))
+          getValueColor(value: value)
             .aspectRatio(1, contentMode: .fit)
             .overlay {
               Text(value.short)
                 .font(.caption)
                 .fontWeight(.semibold)
-                .foregroundStyle(selected.contains(value) ? .white : .black)
+                .foregroundStyle(self.hasValue(value) ? .white : .black)
             }
             .clipShape(RoundedRectangle(cornerRadius: 15))
             .shadow(color: .black.opacity(0.05), radius: 15, y: 10)
@@ -61,8 +73,32 @@ struct InlinePicker<Value: InlinePickerValue>: View {
   }
 
   // MARK: Private Method
-  func getValueColor(isActive: Bool) -> some View {
-    if !isActive {
+  func didClickDay(value: Value) {
+    withAnimation {
+      if handlingMultipleValues {
+        self.didClickMultipleDay(value: value)
+      } else {
+        self.didClickUniqueDay(value: value)
+      }
+    }
+
+    HapticHelper.selectionChanged()
+  }
+
+  func didClickMultipleDay(value: Value) {
+    if self.hasValue(value) {
+      selectedValues.remove(value)
+    } else {
+      selectedValues.insert(value)
+    }
+  }
+
+  func didClickUniqueDay(value: Value) {
+    selectedValue = selectedValue == value ? nil : value
+  }
+
+  func getValueColor(value: Value) -> some View {
+    if !self.hasValue(value) {
       return AnyView(Color.white)
     }
 
@@ -74,9 +110,13 @@ struct InlinePicker<Value: InlinePickerValue>: View {
       )
     )
   }
+
+  func hasValue(_ value: Value) -> Bool {
+    return handlingMultipleValues ? selectedValues.contains(value) : selectedValue == value
+  }
 }
 
-#Preview {
+#Preview("Multiple selection") {
   enum WeekdaysDemo: String, InlinePickerValue {
     case monday, tuesday, wednesday, thursday, friday, saturday, sunday
 
@@ -88,6 +128,22 @@ struct InlinePicker<Value: InlinePickerValue>: View {
   return InlinePicker(
     values: WeekdaysDemo.allCases,
     selected: .constant(Set([.thursday, .sunday]))
+  )
+  .padding()
+}
+
+#Preview("Unique selection") {
+  enum WeekdaysDemo: String, InlinePickerValue {
+    case monday, tuesday, wednesday, thursday, friday, saturday, sunday
+
+    var short: String {
+      String(self.rawValue.prefix(3)).capitalized
+    }
+  }
+
+  return InlinePicker(
+    values: WeekdaysDemo.allCases,
+    selected: .constant(.monday)
   )
   .padding()
 }
