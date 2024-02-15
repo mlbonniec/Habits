@@ -8,14 +8,14 @@
 import Foundation
 import RealmSwift
 
-class HabitsScheduleModel: Object {
+class HabitsScheduleModel: Object, Identifiable {
   @Persisted var id: HabitsIds
-  @Persisted var days: List<Weekdays>
+  @Persisted var days: MutableSet<Weekdays>
 
-  convenience init(id: HabitsIds, days: [Weekdays]) {
+  convenience init(id: HabitsIds, days: Set<Weekdays>) {
     self.init()
     self.id = id
-    self.days = List()
-    self.days.append(objectsIn: days)
+    self.days = MutableSet()
+    self.days.insert(objectsIn: days)
   }
 }
