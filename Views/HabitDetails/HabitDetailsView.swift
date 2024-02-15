@@ -45,7 +45,7 @@ struct HabitDetailsView: View {
       }
     }
     .sheet(isPresented: $showScheduling) {
-      HabitSchedulingFactory.createView()
+      HabitSchedulingFactory.createView(habit: habit)
     }
   }
 

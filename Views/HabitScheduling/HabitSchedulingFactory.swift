@@ -6,7 +6,7 @@
 //
 
 enum HabitSchedulingFactory {
-  static func createView() -> HabitSchedulingView {
-    HabitSchedulingView()
+  static func createView(habit: HabitsModel) -> HabitSchedulingView {
+    HabitSchedulingView(habit: habit)
   }
 }

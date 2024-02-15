@@ -5,6 +5,7 @@
 //  Created by Mathis Le Bonniec on 14/02/2024.
 //
 
+import RealmSwift
 import SwiftUI
 
 struct HabitsScheduleView: View {
@@ -12,6 +13,7 @@ struct HabitsScheduleView: View {
   private let currentWeekday: Weekdays = .thursday
   
   // MARK: Reactive Properties
+  @ObservedResults(HabitsScheduleModel.self) private var schedule: Results<HabitsScheduleModel>
   @State private var selectedWeekday: Weekdays?
 
   // MARK: Body
@@ -27,12 +29,25 @@ struct HabitsScheduleView: View {
         ForEach(Weekdays.allCases) { day in
           if selectedWeekday == nil || day == selectedWeekday {
             GroupBox {
-              Text("Nothing scheduled yet.")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .font(.caption2)
-                .italic()
-                .foregroundStyle(.gray)
-                .padding(.leading, Constants.Dimensions.medium)
+              let filteredIds: [HabitsIds] = schedule.filter { $0.days.contains(day) }.map { $0.id }
+              if filteredIds.isEmpty {
+                Text("Nothing scheduled yet.")
+                  .frame(maxWidth: .infinity, alignment: .leading)
+                  .font(.caption2)
+                  .italic()
+                  .foregroundStyle(.gray)
+                  .padding(.leading, Constants.Dimensions.medium)
+              } else {
+                ForEach(filteredIds) { id in
+                  if let habit: HabitsModel = HabitsMapper.mapById(id: id) {
+                    HabitsListRowView(
+                      systemImage: habit.systemImage,
+                      label: habit.id.rawValue,
+                      description: habit.description
+                    )
+                  }
+                }
+              }
             } label: {
               Text(day.rawValue.capitalized)
                 .foregroundStyle(day == currentWeekday ? Color.accentColor : .black)
