@@ -26,7 +26,7 @@ struct HabitsHistoryView: View {
 
   // MARK: Private Views
   private var HistoryList: some View {
-    List(history.sorted(by: \.date, ascending: false)) { habit in
+    List(history.sorted(by: \.date, ascending: false), id: \.date) { habit in
       if let item = HabitsMapper.mapById(id: habit.id) {
         HabitsListRowView(
           systemImage: item.systemImage,
