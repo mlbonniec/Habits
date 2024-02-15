@@ -23,5 +23,8 @@ extension Constants {
 
     /// 24
     static let xlarge: CGFloat = 24
+    
+    /// 30
+    static let xxlarge: CGFloat = 30
   }
 }
