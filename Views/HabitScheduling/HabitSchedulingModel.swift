@@ -5,7 +5,9 @@
 //  Created by Mathis Le Bonniec on 13/02/2024.
 //
 
-enum Weekdays: String, Identifiable, InlinePickerValue {
+import RealmSwift
+
+enum Weekdays: String, Identifiable, PersistableEnum, InlinePickerValue {
   var id: String {
     rawValue
   }
