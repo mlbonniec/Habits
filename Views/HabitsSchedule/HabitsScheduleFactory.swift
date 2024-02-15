@@ -1,8 +1,12 @@
 //
-//  File.swift
-//  
+//  HabitsScheduleFactory.swift
+//  Habits
 //
 //  Created by Mathis Le Bonniec on 14/02/2024.
 //
 
-import Foundation
+enum HabitsScheduleFactory {
+  static func createView() -> HabitsScheduleView {
+    HabitsScheduleView()
+  }
+}
