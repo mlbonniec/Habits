@@ -25,7 +25,7 @@ struct HabitsApp: App {
             activeTab: activeTab
           )
 
-        Text("Schedule")
+        HabitsScheduleFactory.createView()
           .tabItem(
             label: "Schedule",
             systemImage: "calendar",
