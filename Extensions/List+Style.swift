@@ -32,9 +32,11 @@ extension List {
   /// Set the habit list with some default modifiers.
   /// - List style is now plain
   /// - Rows spacing has been modified
-  func habitList() -> some View {
+  /// - Parameters:
+  ///   - spacing: The list row spacing (default: Constants.Dimensions.medium)
+  func habitList(spacing: CGFloat = Constants.Dimensions.medium) -> some View {
     self
       .listStyle(.plain)
-      .listRowSpacing(Constants.Dimensions.medium)
+      .listRowSpacing(spacing)
   }
 }
