@@ -17,15 +17,25 @@ struct HabitSchedulingView: View {
   @Environment(\.realm) private var realm: Realm
   @State private var selectedValues: Set<Weekdays>
   
+  // MARK: Private Properties
+  private var initialSelectedValues: Set<Weekdays>
+
+  // MARK: Computed Properties
+  private var isSelectionDifferentThanInitial: Bool {
+    selectedValues != initialSelectedValues
+  }
+
+  // MARK: Lifecycle
   init(habit: HabitsModel) {
-    let realm: Realm? = try? Realm()
-    
     self.habit = habit
-    
-    if let loadedScheduledDays = realm?.objects(HabitsScheduleModel.self).first(where: { $0.id == habit.id })?.days {
-      self._selectedValues = State(initialValue: Set(loadedScheduledDays))
+
+    if let realm: Realm = try? Realm(),
+       let loadedScheduledDays = realm.objects(HabitsScheduleModel.self).first(where: { $0.id == habit.id })?.days {
+      self.initialSelectedValues = Set(loadedScheduledDays)
+      self._selectedValues = State(initialValue: self.initialSelectedValues)
     } else {
-      self._selectedValues = State(initialValue: [])
+      self.initialSelectedValues = []
+      self._selectedValues = State(initialValue: self.initialSelectedValues)
     }
   }
 
@@ -63,7 +73,7 @@ struct HabitSchedulingView: View {
         HapticHelper.success()
       }
       .buttonStyle(ButtonHabitStyle())
-      .disabled(selectedValues.isEmpty)
+      .disabled(isSelectionDifferentThanInitial)
     }
     .padding(.vertical, Constants.Dimensions.large)
     .padding(.horizontal, Constants.Dimensions.medium)
