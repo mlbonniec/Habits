@@ -109,7 +109,7 @@ struct HabitDetailsView: View {
       .buttonStyle(ButtonHabitStyle())
       .disabled(steps.contains { !$0 })
 
-      Button("Schedule on a day") {
+      Button("Schedule") {
         showScheduling.toggle()
       }
       .buttonStyle(ButtonHabitStyle(color: Color(red: 238/255, green: 66/255, blue: 102/255)))

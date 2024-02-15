@@ -12,10 +12,22 @@ struct HabitSchedulingView: View {
   // MARK: Properties
   let habit: HabitsModel
 
-  // MARK: Private Properties
+  // MARK: Reactive Properties
   @Environment(\.dismiss) private var dismiss: DismissAction
   @Environment(\.realm) private var realm: Realm
-  @State private var selectedValues: Set<Weekdays> = []
+  @State private var selectedValues: Set<Weekdays>
+  
+  init(habit: HabitsModel) {
+    let realm: Realm? = try? Realm()
+    
+    self.habit = habit
+    
+    if let loadedScheduledDays = realm?.objects(HabitsScheduleModel.self).first(where: { $0.id == habit.id })?.days {
+      self._selectedValues = State(initialValue: Set(loadedScheduledDays))
+    } else {
+      self._selectedValues = State(initialValue: [])
+    }
+  }
 
   // MARK: Body
   var body: some View {
@@ -40,10 +52,14 @@ struct HabitSchedulingView: View {
             days: selectedValues
           )
 
+          realm.objects(HabitsScheduleModel.self).filter { $0.id == habit.id }.forEach { object in
+            realm.delete(object)
+          }
+
           realm.add(schedule)
         }
         
-        // dismiss.callAsFunction()
+        dismiss.callAsFunction()
         HapticHelper.success()
       }
       .buttonStyle(ButtonHabitStyle())
