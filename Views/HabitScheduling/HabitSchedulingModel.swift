@@ -5,7 +5,11 @@
 //  Created by Mathis Le Bonniec on 13/02/2024.
 //
 
-enum Weekdays: String, InlinePickerValue {
+enum Weekdays: String, Identifiable, InlinePickerValue {
+  var id: String {
+    rawValue
+  }
+
   case monday, tuesday, wednesday, thursday, friday, saturday, sunday
 
   var short: String {
