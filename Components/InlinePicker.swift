@@ -18,22 +18,26 @@ struct InlinePicker<Value: InlinePickerValue>: View {
   // MARK: Private Properties
   private let values: [Value]
   private let handlingMultipleValues: Bool
+  private let indicators: Set<Value>
 
   // MARK: Reactive Properties
   @Binding private var selectedValues: Set<Value>
   @Binding private var selectedValue: Value?
 
   // MARK: Lifecycle
-  init(values: [Value], selected: Binding<Set<Value>>) {
+  init(values: [Value], selected: Binding<Set<Value>>, indicators: Set<Value> = []) {
     self.handlingMultipleValues = true
     self.values = values
+    self.indicators = indicators
     self._selectedValue = .constant(nil)
     self._selectedValues = selected
+
   }
 
-  init(values: [Value], selected: Binding<Value?>) {
+  init(values: [Value], selected: Binding<Value?>, indicators: Set<Value> = []) {
     self.handlingMultipleValues = false
     self.values = values
+    self.indicators = indicators
     self._selectedValue = selected
     self._selectedValues = .constant([])
   }
@@ -45,26 +49,36 @@ struct InlinePicker<Value: InlinePickerValue>: View {
       spacing: Constants.Dimensions.small
     ) {
       ForEach(values) { value in
-        Button(action: {
-          didClickDay(value: value)
-        }) {
-          getValueColor(value: value)
-            .aspectRatio(1, contentMode: .fit)
-            .overlay {
-              Text(value.short)
-                .font(.caption)
-                .fontWeight(.semibold)
-                .foregroundStyle(self.hasValue(value) ? .white : .black)
-            }
-            .clipShape(RoundedRectangle(cornerRadius: 15))
-            .shadow(color: .black.opacity(0.05), radius: 15, y: 10)
-            .overlay {
-              RoundedRectangle(cornerRadius: 15)
-                .stroke(Color(red: 229 / 255, green: 235 / 255, blue: 237 / 255), lineWidth: 1)
-                .aspectRatio(1, contentMode: .fill)
-            }
+        VStack(spacing: Constants.Dimensions.medium) {
+          Button(action: {
+            didClickDay(value: value)
+          }) {
+            getValueColor(value: value)
+              .aspectRatio(1, contentMode: .fit)
+              .overlay {
+                Text(value.short)
+                  .font(.caption)
+                  .fontWeight(.semibold)
+                  .foregroundStyle(self.hasValue(value) ? .white : .black)
+              }
+              .clipShape(RoundedRectangle(cornerRadius: 15))
+              .shadow(color: .black.opacity(0.05), radius: 15, y: 10)
+              .overlay {
+                RoundedRectangle(cornerRadius: 15)
+                  .stroke(Color(red: 229 / 255, green: 235 / 255, blue: 237 / 255), lineWidth: 1)
+                  .aspectRatio(1, contentMode: .fill)
+              }
+          }
+          .buttonStyle(.plain)
+
+          if indicators.contains(value) {
+            Circle()
+              .frame(width: 5, height: 5)
+              .foregroundColor(.black.opacity(0.25))
+          } else if !indicators.isEmpty {
+            Spacer(minLength: 0)
+          }
         }
-        .buttonStyle(.plain)
       }
     }
     .onAppear {
@@ -74,7 +88,7 @@ struct InlinePicker<Value: InlinePickerValue>: View {
 
   // MARK: Private Method
   func didClickDay(value: Value) {
-    withAnimation {
+    withAnimation(.spring) {
       if handlingMultipleValues {
         self.didClickMultipleDay(value: value)
       } else {
@@ -131,7 +145,8 @@ struct InlinePicker<Value: InlinePickerValue>: View {
 
   return InlinePicker(
     values: WeekdaysDemo.allCases,
-    selected: .constant(Set([.thursday, .sunday]))
+    selected: .constant(Set([.thursday, .sunday])),
+    indicators: [.friday]
   )
   .padding()
 }
