@@ -9,7 +9,7 @@ import SwiftUI
 
 /// The protocol used for the InlinePicker component.
 /// Values displayed in the picker must conform to this protocol.
-protocol InlinePickerValue: RawRepresentable<String>, CaseIterable, Equatable, Hashable, Identifiable {
+protocol InlinePickerValue: RawRepresentable<String>, Equatable, Hashable, Identifiable {
   /// A short string of the value, used to be displayed in the picker.
   var short: String { get }
 }
@@ -131,7 +131,7 @@ struct InlinePicker<Value: InlinePickerValue>: View {
 }
 
 #Preview("Multiple selection") {
-  enum WeekdaysDemo: String, InlinePickerValue {
+  enum WeekdaysDemo: String, CaseIterable, InlinePickerValue {
     case monday, tuesday, wednesday, thursday, friday, saturday, sunday
 
     var id: String {
@@ -152,7 +152,7 @@ struct InlinePicker<Value: InlinePickerValue>: View {
 }
 
 #Preview("Unique selection") {
-  enum WeekdaysDemo: String, InlinePickerValue {
+  enum WeekdaysDemo: String, CaseIterable, InlinePickerValue {
     case monday, tuesday, wednesday, thursday, friday, saturday, sunday
 
     var id: String {
