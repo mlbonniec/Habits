@@ -7,9 +7,13 @@
 
 import RealmSwift
 
-enum HabitsIds: String, PersistableEnum {
+enum HabitsIds: String, Identifiable, PersistableEnum {
   case doingGrocery = "Doing grocery"
   case takePublicTransportation = "Take a public transportation"
+  
+  var id: String {
+    self.rawValue
+  }
 
   enum Steps {
     // MARK: doingGrocery
