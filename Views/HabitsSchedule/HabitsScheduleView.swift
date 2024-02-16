@@ -12,6 +12,7 @@ struct HabitsScheduleView: View {
   // MARK: Reactive Properties
   @ObservedResults(HabitsScheduleModel.self) private var schedule: Results<HabitsScheduleModel>
   @State private var selectedWeekday: Weekdays?
+  @State private var selectedHabit: HabitsModel?
 
   // MARK: Private Methods
   var selectedDays: [Weekdays] {
@@ -55,11 +56,13 @@ struct HabitsScheduleView: View {
             } else {
               ForEach(filteredIds) { id in
                 if let habit: HabitsModel = HabitsMapper.mapById(id: id) {
-                  HabitsListRowView(
-                    systemImage: habit.systemImage,
-                    label: habit.id.rawValue,
-                    description: habit.description
-                  )
+                  Button(action: { selectedHabit = habit }) {
+                    HabitsListRowView(
+                      systemImage: habit.systemImage,
+                      label: habit.id.rawValue,
+                      description: habit.description
+                    )
+                  }
                 }
               }
             }
@@ -76,6 +79,10 @@ struct HabitsScheduleView: View {
     .habitList(spacing: Constants.Dimensions.xxlarge)
     .backgroundGradient()
     .navigable("Schedule")
+    .sheet(item: $selectedHabit) { habit in
+      HabitDetailsFactory.createView(habit: habit)
+        .navigable()
+    }
   }
 }
 
