@@ -73,7 +73,7 @@ struct HabitSchedulingView: View {
         HapticHelper.success()
       }
       .buttonStyle(ButtonHabitStyle())
-      .disabled(isSelectionDifferentThanInitial)
+      .disabled(!isSelectionDifferentThanInitial)
     }
     .padding(.vertical, Constants.Dimensions.large)
     .padding(.horizontal, Constants.Dimensions.medium)
