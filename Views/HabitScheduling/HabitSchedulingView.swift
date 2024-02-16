@@ -25,6 +25,17 @@ struct HabitSchedulingView: View {
     selectedValues != initialSelectedValues
   }
 
+  private var scheduleLabel: String {
+    switch (initialSelectedValues.isEmpty, selectedValues.isEmpty) {
+    case (false, true):
+      return "Remove schedule"
+    case (true, _):
+      return "Add schedule"
+    default:
+      return "Update schedule"
+    }
+  }
+
   // MARK: Lifecycle
   init(habit: HabitsModel) {
     self.habit = habit
@@ -55,7 +66,7 @@ struct HabitSchedulingView: View {
       .hideChevron()
       .frame(maxHeight: .infinity)
 
-      Button("Schedule") {
+      Button(scheduleLabel) {
         try? realm.write {
           let schedule: HabitsScheduleModel = HabitsScheduleModel(
             id: habit.id,
