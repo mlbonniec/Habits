@@ -5,6 +5,7 @@
 //  Created by Mathis Le Bonniec on 13/02/2024.
 //
 
+import Foundation
 import RealmSwift
 
 enum Weekdays: String, Identifiable, PersistableEnum, InlinePickerValue {
@@ -12,29 +13,23 @@ enum Weekdays: String, Identifiable, PersistableEnum, InlinePickerValue {
     rawValue
   }
 
-  case monday, tuesday, wednesday, thursday, friday, saturday, sunday
+  case sunday, monday, tuesday, wednesday, thursday, friday, saturday
 
   var short: String {
     String(self.rawValue.prefix(3)).capitalized
   }
 
-  init?(rawValue: Int?) {
-    switch rawValue {
-    case 1:
-      self = .monday
-    case 2:
-      self = .tuesday
-    case 3:
-      self = .wednesday
-    case 4:
-      self = .thursday
-    case 5:
-      self = .friday
-    case 6:
-      self = .saturday
-    case 7:
-      self = .sunday
-    default:
+  static var allCases: [Weekdays] {
+    let base: [Weekdays] = [.sunday, .monday, .tuesday, .wednesday, .thursday, .friday, .saturday]
+    let firstWeekday: Int = Calendar.current.firstWeekday - 1
+
+    return Array(base[firstWeekday..<base.count] + base[0..<firstWeekday])
+  }
+
+  init?(rawValue: Int) {
+    if let weekday = Weekdays.allCases[safe: rawValue - 1] {
+      self = weekday
+    } else {
       return nil
     }
   }
