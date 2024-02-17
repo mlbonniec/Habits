@@ -38,7 +38,6 @@ struct HabitDetailsView: View {
     .backgroundGradient()
     .navigationBarBackButtonHidden()
     .navigationBarTitleDisplayMode(.inline)
-    .coordinateSpace(name: "scroll")
     .toolbar {
       ToolbarItem(placement: .topBarTrailing) {
         CloseButton(action: dismiss.callAsFunction)
