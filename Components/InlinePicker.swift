@@ -21,6 +21,7 @@ struct InlinePicker<Value: InlinePickerValue>: View {
   private let indicators: Set<Value>
 
   // MARK: Reactive Properties
+  @Environment(\.colorScheme) private var colorScheme: ColorScheme
   @Binding private var selectedValues: Set<Value>
   @Binding private var selectedValue: Value?
 
@@ -59,7 +60,7 @@ struct InlinePicker<Value: InlinePickerValue>: View {
                 Text(value.short)
                   .font(.caption)
                   .fontWeight(.semibold)
-                  .foregroundStyle(self.hasValue(value) ? Constants.Colors.primary : Constants.Colors.text)
+                  .foregroundStyle(self.getDayForegroundColor(value: value))
               }
               .modifier(BoxAppearance(cornerRadius: 15))
           }
@@ -81,6 +82,12 @@ struct InlinePicker<Value: InlinePickerValue>: View {
   }
 
   // MARK: Private Method
+  func getDayForegroundColor(value: Value) -> Color {
+    guard colorScheme != .dark else { return .white }
+
+    return self.hasValue(value) ? Constants.Colors.primary : Constants.Colors.text
+  }
+
   func didClickDay(value: Value) {
     withAnimation(.spring) {
       if handlingMultipleValues {
