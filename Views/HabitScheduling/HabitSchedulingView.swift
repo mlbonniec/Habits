@@ -90,6 +90,7 @@ struct HabitSchedulingView: View {
     .padding(.horizontal, Constants.Dimensions.medium)
     .presentationDetents([.medium])
     .presentationDragIndicator(.hidden)
+    .backgroundGradient()
   }
 }
 
