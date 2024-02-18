@@ -20,7 +20,7 @@ struct ButtonHabitStyle: ButtonStyle {
   // MARK: Body
   func makeBody(configuration: Configuration) -> some View {
     configuration.label
-      .foregroundStyle(Constants.Colors.text)
+      .foregroundStyle(.white)
       .fontWeight(.semibold)
       .fontWidth(.expanded)
       .frame(maxWidth: .infinity)
