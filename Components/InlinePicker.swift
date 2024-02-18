@@ -118,11 +118,14 @@ struct InlinePicker<Value: InlinePickerValue>: View {
     }
 
     return AnyView(
-      LinearGradient(
-        colors: [.accentColor.opacity(0.75), .accentColor],
-        startPoint: .top,
-        endPoint: .bottom
-      )
+      Color.white
+        .overlay {
+          LinearGradient(
+            colors: [.accentColor.opacity(0.75), .accentColor],
+            startPoint: .top,
+            endPoint: .bottom
+          )
+        }
     )
   }
 

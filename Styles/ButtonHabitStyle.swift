@@ -27,18 +27,16 @@ struct ButtonHabitStyle: ButtonStyle {
       .padding(.vertical, Constants.Dimensions.large)
       .padding(.horizontal, Constants.Dimensions.xlarge)
       .background(
-        LinearGradient(
-          colors: [color.opacity(0.75), color],
-          startPoint: .top,
-          endPoint: .bottom
-        )
+        Color.white
+          .overlay {
+            LinearGradient(
+              colors: [color.opacity(0.75), color],
+              startPoint: .top,
+              endPoint: .bottom
+            )
+          }
       )
-      .clipShape(shape)
-      .shadow(color: .black.opacity(0.05), radius: 15, y: 10)
-      .overlay {
-        shape
-          .stroke(Color(red: 229 / 255, green: 235 / 255, blue: 237 / 255), lineWidth: 1)
-      }
+      .modifier(BoxAppearance(cornerRadius: 20))
       .opacity(getOpacity(isPressed: configuration.isPressed))
   }
 
