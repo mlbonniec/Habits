@@ -40,7 +40,7 @@ struct ToggleHabitStyle: ToggleStyle {
       Image(systemName: configuration.isOn ? "checkmark.circle.fill" : "circle")
         .resizable()
         .aspectRatio(contentMode: .fit)
-        .foregroundStyle(configuration.isOn ? .accentColor : Color(white: 0.93))
+        .foregroundStyle(configuration.isOn ? Color.accentColor : Constants.Colors.text.opacity(0.15))
     }
     .buttonStyle(.plain)
     .frame(width: size, height: size)
