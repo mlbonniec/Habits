@@ -20,14 +20,17 @@ struct HabitsScheduleView: View {
       return [selectedWeekday]
     }
 
-    return Weekdays.allCases
+    return Weekdays.orderedAllCases
   }
 
   var currentWeekday: Weekdays? {
     let date = Calendar.current.dateComponents([.weekday], from: Date.now)
     let weekday = date.weekday
 
+//    print(weekday)
+
     if let weekday {
+//      print(Weekdays(rawValue: weekday - 1))
       return Weekdays(rawValue: weekday - 1)
     }
     return nil
@@ -38,7 +41,7 @@ struct HabitsScheduleView: View {
     List {
       Group {
         InlinePicker(
-          values: Weekdays.allCases,
+          values: Weekdays.orderedAllCases,
           selected: $selectedWeekday,
           indicators: Set([currentWeekday].compactMap { $0 })
         )

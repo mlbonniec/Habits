@@ -19,7 +19,8 @@ enum Weekdays: String, Identifiable, PersistableEnum, InlinePickerValue {
     String(self.rawValue.prefix(3)).capitalized
   }
 
-  static var allCases: [Weekdays] {
+  /// A static property similar to allCases, instead that cases are ordered based on Calendar.current.firstWeekday
+  static var orderedAllCases: [Weekdays] {
     let base: [Weekdays] = [.sunday, .monday, .tuesday, .wednesday, .thursday, .friday, .saturday]
     let firstWeekday: Int = Calendar.current.firstWeekday - 1
 
@@ -27,7 +28,7 @@ enum Weekdays: String, Identifiable, PersistableEnum, InlinePickerValue {
   }
 
   init?(rawValue: Int) {
-    if let weekday = Weekdays.allCases[safe: rawValue - 1] {
+    if let weekday = Weekdays.allCases[safe: rawValue] {
       self = weekday
     } else {
       return nil
