@@ -69,7 +69,7 @@ struct InlinePicker<Value: InlinePickerValue>: View {
           if indicators.contains(value) {
             Circle()
               .frame(width: 5, height: 5)
-              .foregroundColor(.black.opacity(0.25))
+              .foregroundColor(Constants.Colors.text.opacity(0.25))
           } else if !indicators.isEmpty {
             Spacer(minLength: 0)
           }
