@@ -54,7 +54,13 @@ struct HabitSchedulingView: View {
   var body: some View {
     VStack(spacing: Constants.Dimensions.medium) {
       GroupBox("Schedule habit") {
-        InlinePicker(values: Weekdays.orderedAllCases, selected: $selectedValues)
+        InlinePicker(
+          values: Weekdays.orderedAllCases,
+          selected: $selectedValues,
+          indicators: Set([
+            Calendar.currentWeekday
+          ].compactMap { $0 })
+        )
       }
       .groupBoxStyle(GroupBoxHabitStyle())
 

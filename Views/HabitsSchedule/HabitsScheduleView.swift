@@ -23,19 +23,6 @@ struct HabitsScheduleView: View {
     return Weekdays.orderedAllCases
   }
 
-  var currentWeekday: Weekdays? {
-    let date = Calendar.current.dateComponents([.weekday], from: Date.now)
-    let weekday = date.weekday
-
-//    print(weekday)
-
-    if let weekday {
-//      print(Weekdays(rawValue: weekday - 1))
-      return Weekdays(rawValue: weekday - 1)
-    }
-    return nil
-  }
-
   // MARK: Body
   var body: some View {
     List {
@@ -43,7 +30,9 @@ struct HabitsScheduleView: View {
         InlinePicker(
           values: Weekdays.orderedAllCases,
           selected: $selectedWeekday,
-          indicators: Set([currentWeekday].compactMap { $0 })
+          indicators: Set([
+            Calendar.currentWeekday
+          ].compactMap { $0 })
         )
 
         ForEach(selectedDays) { day in
@@ -71,7 +60,7 @@ struct HabitsScheduleView: View {
             }
           } label: {
             Text(day.rawValue.capitalized)
-              .foregroundStyle(day == currentWeekday ? Color.accentColor : Constants.Colors.text)
+              .foregroundStyle(day == Calendar.currentWeekday ? Color.accentColor : Constants.Colors.text)
           }
           .groupBoxStyle(GroupBoxHabitStyle())
           .padding(.bottom, day == selectedDays.last ? Constants.Dimensions.xxlarge : 0)
