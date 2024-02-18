@@ -68,7 +68,7 @@ struct HabitsScheduleView: View {
             }
           } label: {
             Text(day.rawValue.capitalized)
-              .foregroundStyle(day == currentWeekday ? Color.accentColor : .black)
+              .foregroundStyle(day == currentWeekday ? Color.accentColor : Constants.Colors.text)
           }
           .groupBoxStyle(GroupBoxHabitStyle())
           .padding(.bottom, day == selectedDays.last ? Constants.Dimensions.xxlarge : 0)

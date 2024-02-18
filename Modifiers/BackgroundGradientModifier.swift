@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct BackgroundGradientModifier: ViewModifier {
+  // MARK: Private Properties
+  @Environment(\.colorScheme) private var colorScheme: ColorScheme
+
   // MARK: Body
   func body(content: Content) -> some View {
     GeometryReader { proxy in
@@ -15,8 +18,8 @@ struct BackgroundGradientModifier: ViewModifier {
         .background(
           RadialGradient(
             gradient: Gradient(colors: [
-              .accentColor.opacity(0.15),
-              .white
+              Constants.Colors.Gradient.start,
+              Constants.Colors.Gradient.end
             ]),
             center: .center,
             startRadius: 0,

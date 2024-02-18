@@ -21,6 +21,7 @@ struct HabitsHistoryView: View {
         HistoryList
       }
     }
+    .backgroundGradient()
     .navigable("History")
   }
 
@@ -38,7 +39,6 @@ struct HabitsHistoryView: View {
       }
     }
     .habitList()
-    .backgroundGradient()
   }
 }
 

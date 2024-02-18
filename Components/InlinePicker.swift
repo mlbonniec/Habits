@@ -59,15 +59,9 @@ struct InlinePicker<Value: InlinePickerValue>: View {
                 Text(value.short)
                   .font(.caption)
                   .fontWeight(.semibold)
-                  .foregroundStyle(self.hasValue(value) ? .white : .black)
+                  .foregroundStyle(self.hasValue(value) ? Constants.Colors.primary : Constants.Colors.text)
               }
-              .clipShape(RoundedRectangle(cornerRadius: 15))
-              .shadow(color: .black.opacity(0.05), radius: 15, y: 10)
-              .overlay {
-                RoundedRectangle(cornerRadius: 15)
-                  .stroke(Color(red: 229 / 255, green: 235 / 255, blue: 237 / 255), lineWidth: 1)
-                  .aspectRatio(1, contentMode: .fill)
-              }
+              .modifier(BoxAppearance(cornerRadius: 15))
           }
           .buttonStyle(.plain)
 
@@ -113,7 +107,7 @@ struct InlinePicker<Value: InlinePickerValue>: View {
 
   func getValueColor(value: Value) -> some View {
     if !self.hasValue(value) {
-      return AnyView(Color.white)
+      return AnyView(Constants.Colors.primary)
     }
 
     return AnyView(

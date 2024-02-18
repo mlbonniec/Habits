@@ -15,6 +15,7 @@ struct GroupBoxHabitStyle: GroupBoxStyle {
         .font(.title)
         .fontWeight(.semibold)
         .fontWidth(.expanded)
+        .foregroundStyle(Constants.Colors.text)
 
       configuration.content
         .frame(maxWidth: .infinity)
