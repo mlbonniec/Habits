@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TipKit
 
 @main
 struct HabitsApp: App {
@@ -40,6 +41,14 @@ struct HabitsApp: App {
             tag: .history,
             activeTab: activeTab
           )
+      }
+      .task {
+        if #available(iOS 17.0, *) {
+          try? Tips.configure([
+            .displayFrequency(.immediate),
+            .datastoreLocation(.applicationDefault)
+          ])
+        }
       }
     }
   }
