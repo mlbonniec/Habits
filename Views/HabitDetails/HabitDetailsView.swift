@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RealmSwift
+import TipKit
 
 struct HabitDetailsView: View {
   // MARK: Properties
@@ -63,6 +64,11 @@ struct HabitDetailsView: View {
 
   private var StepsView: some View {
     GroupBox("Steps") {
+      if #available(iOS 17.0, *) {
+        TipView(HabitDetailsStepsTip(), arrowEdge: .bottom)
+          .tipImageSize(CGSize(width: 35, height: 35))
+      }
+
       ForEach(Array(habit.steps.enumerated()), id: \.offset) { id, step in
         HabitDetailsItemView(
           label: step.label,
