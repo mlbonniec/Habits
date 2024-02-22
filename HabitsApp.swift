@@ -50,6 +50,9 @@ struct HabitsApp: App {
           ])
         }
       }
+      .onAppear {
+        NotificationsHelper.resetBadgeCount()
+      }
     }
   }
 }
