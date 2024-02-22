@@ -19,6 +19,14 @@ enum Weekdays: String, Identifiable, PersistableEnum, InlinePickerValue {
     String(self.rawValue.prefix(3)).capitalized
   }
 
+  var currentWeekdayIndex: Int? {
+    guard let weekday = Weekdays.orderedAllCases.firstIndex(where: { $0 == self }) else {
+      return nil
+    }
+
+    return weekday + 1
+  }
+
   /// A static property similar to allCases, instead that cases are ordered based on Calendar.current.firstWeekday
   static var orderedAllCases: [Weekdays] {
     let base: [Weekdays] = [.sunday, .monday, .tuesday, .wednesday, .thursday, .friday, .saturday]
