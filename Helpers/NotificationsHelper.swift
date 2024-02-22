@@ -19,6 +19,10 @@ enum NotificationsHelper {
     )
   }
 
+  /// Setup a local notification for the specified day and habit
+  /// - Parameters:
+  ///   - for The weekday the notification will occurs
+  ///   - habitId The habit id for witch the notification will occurs
   static func setupHabitNotification(for weekday: Weekdays, habitId: HabitsIds) -> Void {
     let content: UNMutableNotificationContent = UNMutableNotificationContent()
     content.title = habitId.rawValue
@@ -42,16 +46,11 @@ enum NotificationsHelper {
     dateComponents.hour = 9
     dateComponents.minute = 0
 
-    UNUserNotificationCenter.current().getPendingNotificationRequests { notifications in
-      print(notifications)
-    }
-
     let identifier: String = self.constructNotificationId(weekday: weekday, habitId: habitId)
     let trigger: UNCalendarNotificationTrigger = UNCalendarNotificationTrigger(
       dateMatching: dateComponents,
       repeats: true
     )
-
     let request: UNNotificationRequest = UNNotificationRequest(
       identifier: identifier,
       content: content,
@@ -59,6 +58,18 @@ enum NotificationsHelper {
     )
 
     self.currentNotificationCenter.add(request)
+  }
+
+  /// Remove local notification for the specified day and habit
+  /// - Parameters:
+  ///   - for The weekday the notification will occurs
+  ///   - habitId The habit id for witch the notification will occurs
+  static func removeHabitNotification(for weekday: Weekdays, habitId: HabitsIds) -> Void {
+    let identifier: String = self.constructNotificationId(weekday: weekday, habitId: habitId)
+
+    self.currentNotificationCenter.removePendingNotificationRequests(withIdentifiers: [
+      identifier
+    ])
   }
 
   /// Set the application badge count to 0
