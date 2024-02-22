@@ -85,7 +85,15 @@ struct HabitSchedulingView: View {
 
           realm.add(schedule)
         }
-        
+
+        Weekdays.allCases.forEach { weekday in
+          NotificationsHelper.removeHabitNotification(for: weekday, habitId: habit.id)
+        }
+
+        selectedValues.forEach { selectedDay in
+          NotificationsHelper.setupHabitNotification(for: selectedDay, habitId: habit.id)
+        }
+
         dismiss.callAsFunction()
         HapticHelper.success()
       }
