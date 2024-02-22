@@ -31,10 +31,25 @@ enum NotificationsHelper {
       content.subtitle = description
     }
 
+    var dateComponents = DateComponents()
+    dateComponents.calendar = Calendar.current
+
+    guard let currentWeekdayIndex = weekday.currentWeekdayIndex else {
+      return
+    }
+
+    dateComponents.weekday = currentWeekdayIndex
+    dateComponents.hour = 9
+    dateComponents.minute = 0
+
+    UNUserNotificationCenter.current().getPendingNotificationRequests { notifications in
+      print(notifications)
+    }
+
     let identifier: String = self.constructNotificationId(weekday: weekday, habitId: habitId)
-    let trigger: UNTimeIntervalNotificationTrigger = UNTimeIntervalNotificationTrigger(
-      timeInterval: 5,
-      repeats: false
+    let trigger: UNCalendarNotificationTrigger = UNCalendarNotificationTrigger(
+      dateMatching: dateComponents,
+      repeats: true
     )
 
     let request: UNNotificationRequest = UNNotificationRequest(
