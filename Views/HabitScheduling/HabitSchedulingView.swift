@@ -90,12 +90,20 @@ struct HabitSchedulingView: View {
           NotificationsHelper.removeHabitNotification(for: weekday, habitId: habit.id)
         }
 
-        selectedValues.forEach { selectedDay in
-          NotificationsHelper.setupHabitNotification(for: selectedDay, habitId: habit.id)
-        }
+        NotificationsHelper.requestPermission { granted, error in
+          if granted {
+            print("Notification permission granted.")
+            selectedValues.forEach { selectedDay in
+              NotificationsHelper.setupHabitNotification(for: selectedDay, habitId: habit.id)
+            }
+            HapticHelper.success()
+          } else {
+            print("Notification permission not granted.")
+            HapticHelper.error()
+          }
 
-        dismiss.callAsFunction()
-        HapticHelper.success()
+          dismiss.callAsFunction()
+        }
       }
       .buttonStyle(ButtonHabitStyle())
       .disabled(!isSelectionDifferentThanInitial)

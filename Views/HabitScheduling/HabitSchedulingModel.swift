@@ -15,12 +15,14 @@ enum Weekdays: String, Identifiable, PersistableEnum, InlinePickerValue {
 
   case sunday, monday, tuesday, wednesday, thursday, friday, saturday
 
+  /// A short string representing each day, it's basically the first three letters.
   var short: String {
     String(self.rawValue.prefix(3)).capitalized
   }
 
-  var currentWeekdayIndex: Int? {
-    guard let weekday = Weekdays.orderedAllCases.firstIndex(where: { $0 == self }) else {
+  /// The current weekday index, absolute to allCases
+  var absoluteWeekdayIndex: Int? {
+    guard let weekday = Weekdays.allCases.firstIndex(where: { $0 == self }) else {
       return nil
     }
 
