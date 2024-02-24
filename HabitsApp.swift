@@ -11,50 +11,65 @@ import TipKit
 
 @main
 struct HabitsApp: App {
-  // MARK: Private Properties
-  @State private var activeTab: AppTabView = .habits
-
   // MARK: Body
   var body: some Scene {
     WindowGroup {
-      TabView(selection: $activeTab) {
-        HabitsListFactory.createView()
-          .tabItem(
-            label: "Habits",
-            systemImage: "checklist",
-            activeSystemImage: "checklist.checked",
-            tag: .habits,
-            activeTab: activeTab
-          )
-
-        HabitsScheduleFactory.createView()
-          .tabItem(
-            label: "Schedule",
-            systemImage: "calendar",
-            tag: .calendar,
-            activeTab: activeTab
-          )
-
-        HabitsHistoryFactory.createView()
-          .tabItem(
-            label: "History",
-            systemImage: "clock.arrow.circlepath",
-            tag: .history,
-            activeTab: activeTab
-          )
-      }
-      .task {
-        if #available(iOS 17.0, *) {
-          try? Tips.configure([
-            .displayFrequency(.immediate),
-            .datastoreLocation(.applicationDefault)
-          ])
-        }
-      }
-      .onAppear {
-        NotificationsHelper.resetBadgeCount()
-      }
-      .presentOnBoarding(HabitsOnBoarding(), mode: .sheet)
+      ContentView()
+        .environmentObject(HabitsNotificationsDelegate())
     }
+  }
+}
+
+struct ContentView: View {
+  // MARK: Private Properties
+  @State private var activeTab: AppTabView = .habits
+  @EnvironmentObject private var notificationDelegate: HabitsNotificationsDelegate
+
+  // MARK: Body
+  var body: some View {
+    TabView(selection: $activeTab) {
+      HabitsListFactory.createView()
+        .tabItem(
+          label: "Habits",
+          systemImage: "checklist",
+          activeSystemImage: "checklist.checked",
+          tag: .habits,
+          activeTab: activeTab
+        )
+
+      HabitsScheduleFactory.createView()
+        .tabItem(
+          label: "Schedule",
+          systemImage: "calendar",
+          tag: .calendar,
+          activeTab: activeTab
+        )
+
+      HabitsHistoryFactory.createView()
+        .tabItem(
+          label: "History",
+          systemImage: "clock.arrow.circlepath",
+          tag: .history,
+          activeTab: activeTab
+        )
+    }
+    .task {
+      if #available(iOS 17.0, *) {
+        try? Tips.configure([
+          .displayFrequency(.immediate),
+          .datastoreLocation(.applicationDefault)
+        ])
+      }
+    }
+    .onAppear {
+      NotificationsHelper.resetBadgeCount()
+    }
+    .sheet(item: $notificationDelegate.shownDetails) { id in
+      if let habit = HabitsMapper.mapById(id: id) {
+        HabitDetailsFactory.createView(habit: habit)
+          .navigable()
+      }
+    }
+    .presentOnBoarding(HabitsOnBoarding(), mode: .sheet)
   }
 }

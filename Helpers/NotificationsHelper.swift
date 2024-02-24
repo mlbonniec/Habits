@@ -12,6 +12,17 @@ import UIKit
 enum NotificationsHelper {
   static let currentNotificationCenter: UNUserNotificationCenter = UNUserNotificationCenter.current()
 
+  /// User info enum
+  enum UserInfo {
+    enum Keys: String {
+      case view, id
+    }
+
+    enum Values: String {
+      case habitDetails
+    }
+  }
+
   /// Request notification permission for alert, badge and sound
   static func requestPermission(completionHandler: @escaping (Bool, Error?) -> Void) -> Void {
     self.currentNotificationCenter.requestAuthorization(
@@ -105,6 +116,10 @@ enum NotificationsHelper {
     content.badge = 1
     content.body = "Don't forget to do this habit."
     content.sound = UNNotificationSound.default
+    content.userInfo = [
+      UserInfo.Keys.view.rawValue: UserInfo.Values.habitDetails.rawValue,
+      UserInfo.Keys.id.rawValue: habitId.rawValue
+    ]
 
     if let habit = HabitsMapper.mapById(id: habitId),
        let description = habit.description {
