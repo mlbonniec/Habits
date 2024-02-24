@@ -114,10 +114,16 @@ struct HabitDetailsView: View {
       .buttonStyle(ButtonHabitStyle())
       .disabled(steps.contains { !$0 })
 
+      if #available(iOS 17.0, *) {
+        TipView(HabitDetailsActionsTip(), arrowEdge: .bottom)
+          .habitTipStyle()
+      }
+
       Button("Schedule") {
         showScheduling.toggle()
       }
       .buttonStyle(ButtonHabitStyle(color: Color(red: 238/255, green: 66/255, blue: 102/255)))
+
     }
     .groupBoxStyle(GroupBoxHabitStyle())
   }

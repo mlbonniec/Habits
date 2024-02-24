@@ -11,7 +11,7 @@ import TipKit
 @available(iOS 17.0, *)
 struct HabitDetailsStepsTip: Tip {
   var id: String {
-    "checkSteps"
+    "habitDetailsCheckSteps"
   }
 
   var title: Text {
