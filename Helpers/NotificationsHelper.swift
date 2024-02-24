@@ -114,7 +114,7 @@ enum NotificationsHelper {
     let content: UNMutableNotificationContent = UNMutableNotificationContent()
     content.title = [demo ? "DEMO" : nil, habitId.rawValue].compactMap { $0 }.joined(separator: " - ")
     content.badge = 1
-    content.body = "Don't forget to do this habit."
+    content.body = "Tap to start steps."
     content.sound = UNNotificationSound.default
     content.userInfo = [
       UserInfo.Keys.view.rawValue: UserInfo.Values.habitDetails.rawValue,
