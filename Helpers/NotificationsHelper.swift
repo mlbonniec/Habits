@@ -15,11 +15,7 @@ enum NotificationsHelper {
   /// User info enum
   enum UserInfo {
     enum Keys: String {
-      case view, id
-    }
-
-    enum Values: String {
-      case habitDetails
+      case id
     }
   }
 
@@ -117,7 +113,6 @@ enum NotificationsHelper {
     content.body = "Tap to start steps."
     content.sound = UNNotificationSound.default
     content.userInfo = [
-      UserInfo.Keys.view.rawValue: UserInfo.Values.habitDetails.rawValue,
       UserInfo.Keys.id.rawValue: habitId.rawValue
     ]
 

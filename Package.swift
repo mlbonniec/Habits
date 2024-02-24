@@ -20,7 +20,7 @@ let package = Package(
             teamIdentifier: "48PU6Z9EME",
             displayVersion: "1.0",
             bundleVersion: "1",
-            appIcon: .placeholder(icon: .checkmark),
+            appIcon: .asset("AppIcon"),
             accentColor: .asset("AccentColor"),
             supportedDeviceFamilies: [
                 .pad,
@@ -31,7 +31,8 @@ let package = Package(
                 .landscapeRight,
                 .landscapeLeft,
                 .portraitUpsideDown(.when(deviceFamilies: [.pad]))
-            ]
+            ],
+            appCategory: .utilities
         )
     ],
     dependencies: [
