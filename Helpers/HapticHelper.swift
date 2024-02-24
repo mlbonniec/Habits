@@ -22,6 +22,11 @@ enum HapticHelper {
     notification.notificationOccurred(.success)
   }
 
+  /// A notification feedback that indicate an error.
+  static func error() -> Void {
+    notification.notificationOccurred(.error)
+  }
+
   /// A feedback that indicate a selection change.
   static func selectionChanged() {
     selection.selectionChanged()
