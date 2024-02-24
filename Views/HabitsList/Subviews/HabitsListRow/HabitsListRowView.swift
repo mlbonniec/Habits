@@ -26,6 +26,7 @@ struct HabitsListRowView: View {
           Image(systemName: systemImage)
             .resizable()
             .frame(width: 20, height: 20)
+            .aspectRatio(contentMode: .fill)
             .foregroundStyle(.tint)
         }
 
