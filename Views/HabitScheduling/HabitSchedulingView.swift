@@ -96,6 +96,11 @@ struct HabitSchedulingView: View {
             selectedValues.forEach { selectedDay in
               NotificationsHelper.setupHabitNotification(for: selectedDay, habitId: habit.id)
             }
+
+            if !selectedValues.isEmpty {
+              NotificationsHelper.setupDemoNotification(habitId: habit.id)
+            }
+
             HapticHelper.success()
           } else {
             print("Notification permission not granted.")
