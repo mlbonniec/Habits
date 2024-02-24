@@ -5,6 +5,7 @@
 //  Created by Mathis Le Bonniec on 10/02/2024.
 //
 
+import OnBoardingKit
 import SwiftUI
 import TipKit
 
@@ -53,6 +54,7 @@ struct HabitsApp: App {
       .onAppear {
         NotificationsHelper.resetBadgeCount()
       }
+      .presentOnBoarding(HabitsOnBoarding(), mode: .sheet)
     }
   }
 }

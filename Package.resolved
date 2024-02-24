@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "onboardingkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mlbonniec/OnBoardingKit",
+      "state" : {
+        "revision" : "6d2d218e1ff7aa649734edc4ed27240d1ef7aea7",
+        "version" : "1.1.0"
+      }
+    },
+    {
       "identity" : "realm-core",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/realm/realm-core.git",

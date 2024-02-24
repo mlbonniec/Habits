@@ -35,14 +35,16 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/realm/realm-swift", "10.47.0"..<"11.0.0")
+        .package(url: "https://github.com/realm/realm-swift", "10.47.0"..<"11.0.0"),
+        .package(url: "https://github.com/mlbonniec/OnBoardingKit", "1.1.0"..<"2.0.0")
     ],
     targets: [
         .executableTarget(
             name: "AppModule",
             dependencies: [
                 .product(name: "Realm", package: "realm-swift"),
-                .product(name: "RealmSwift", package: "realm-swift")
+                .product(name: "RealmSwift", package: "realm-swift"),
+                .product(name: "OnBoardingKit", package: "onboardingkit")
             ],
             path: "."
         )
