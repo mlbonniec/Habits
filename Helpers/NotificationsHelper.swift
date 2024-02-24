@@ -12,6 +12,7 @@ import UIKit
 enum NotificationsHelper {
   static let currentNotificationCenter: UNUserNotificationCenter = UNUserNotificationCenter.current()
 
+  /// Request notification permission for alert, badge and sound
   static func requestPermission(completionHandler: @escaping (Bool, Error?) -> Void) -> Void {
     self.currentNotificationCenter.requestAuthorization(
       options: [.alert, .badge, .sound],
