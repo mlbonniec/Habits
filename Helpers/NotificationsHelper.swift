@@ -36,7 +36,6 @@ enum NotificationsHelper {
     dateComponents.weekday = absoluteWeekdayIndex
     dateComponents.hour = 9
     dateComponents.minute = 0
-    dateComponents.second = 1
 
     let identifier: String = self.constructNotificationId(weekday: weekday, habitId: habitId)
     let trigger: UNCalendarNotificationTrigger = UNCalendarNotificationTrigger(
@@ -48,8 +47,6 @@ enum NotificationsHelper {
       content: content,
       trigger: trigger
     )
-
-    print("Notification scheduled on \(weekday) for \(habitId).")
 
     self.currentNotificationCenter.add(request)
   }
@@ -67,8 +64,6 @@ enum NotificationsHelper {
       content: content,
       trigger: trigger
     )
-
-    print("Demo notification scheduled for \(habitId).")
 
     self.currentNotificationCenter.add(request)
   }

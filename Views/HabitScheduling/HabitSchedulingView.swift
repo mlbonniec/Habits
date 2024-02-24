@@ -92,7 +92,6 @@ struct HabitSchedulingView: View {
 
         NotificationsHelper.requestPermission { granted, error in
           if granted {
-            print("Notification permission granted.")
             selectedValues.forEach { selectedDay in
               NotificationsHelper.setupHabitNotification(for: selectedDay, habitId: habit.id)
             }
@@ -103,7 +102,6 @@ struct HabitSchedulingView: View {
 
             HapticHelper.success()
           } else {
-            print("Notification permission not granted.")
             HapticHelper.error()
           }
 
