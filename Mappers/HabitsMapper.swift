@@ -76,7 +76,113 @@ enum HabitsMapper {
             description: "Once arrived at your stop destination, get off."
           )
         ]
-      )
+      ),
+      HabitsModel(
+        id: .takeMedication,
+        systemImage: "pills.fill",
+        steps: [
+          HabitsModel.Step(
+            id: .takeMedicationTakePrescription,
+            label: "Take prescription",
+            description: "Pick up the prescription written by the doctor."
+          ),
+          HabitsModel.Step(
+            id: .takeMedicationGoToThePharmacy,
+            label: "Go to the pharmacy",
+            description: "Pick up your medication."
+          ),
+          HabitsModel.Step(
+            id: .takeMedicationStoringDrugs,
+            label: "Store the drug",
+            description: "Back home, safely store your drug."
+          ),
+          HabitsModel.Step(
+            id: .takeMedicationPrepareWater,
+            label: "Prepare water",
+            description: "Fill a glass with water for the next step."
+          ),
+          HabitsModel.Step(
+            id: .takeMedicationTakeDrugs,
+            label: "Take drug",
+            description: "Swallow the drug with a glass of water"
+          )
+        ]
+      ),
+      HabitsModel(
+        id: .prepareFood,
+        systemImage: "fork.knife",
+        steps: [
+          HabitsModel.Step(
+            id: .prepareFoodChooseYourMeal,
+            label: "Choose your meal"
+          ),
+          HabitsModel.Step(
+            id: .prepareFoodPrepareRecipe,
+            label: "Prepare the recipe",
+            description: "You can find the recipe on internet."
+          ),
+          HabitsModel.Step(
+            id: .prepareFoodCollectIngredients,
+            label: "Collect ingredients",
+            description: "Gather all the ingredients."
+          ),
+          HabitsModel.Step(
+            id: .prepareFoodTurnOnCookingAppliance,
+            label: "Turn on cooking appliance",
+            description: "Turn on the hob, oven, barbecue… according to your needs."
+          ),
+          HabitsModel.Step(
+            id: .prepareFoodFollowInstructions,
+            label: "Follow instructions",
+            description: "Carefully follow the recipe."
+          ),
+          HabitsModel.Step(
+            id: .prepareFoodTurnOffCookingAppliance,
+            label: "Turn off cooking appliance",
+            description: "Do not forget to turn off the cooking appliance once used!"
+          ),
+          HabitsModel.Step(
+            id: .prepareFoodEat,
+            label: "Eat"
+          )
+        ]
+      ),
+      HabitsModel(
+        id: .washingClothes,
+        systemImage: "washer.fill",
+        steps: [
+          HabitsModel.Step(
+            id: .washingClothesSortLaundry,
+            label: "Sort your laundry",
+            description: "Sort them by color, preferably light and dark."
+          ),
+          HabitsModel.Step(
+            id: .washingClothesFillWashingMachine,
+            label: "Adding laundry to the washer",
+            description: "Choose one of the previously sorted laundry bundles."
+          ),
+          HabitsModel.Step(
+            id: .washingClothesAddWashingPowder,
+            label: "Adding washing powder",
+            description: "Carefully read the instructions on the packaging."
+          ),
+          HabitsModel.Step(
+            id: .washingClothesSelectWashingCycle,
+            label: "Select washing cycle",
+            description: "Look at the tags on clothes: they indicate the cycle to use."
+          ),
+          HabitsModel.Step(
+            id: .washingClothesStart,
+            label: "Start the washer",
+            description: "Close the washer door and start it."
+          ),
+          HabitsModel.Step(
+            id: .washingClothesDry,
+            label: "Dry your clothes",
+            description: "Once washed, dry with a tumble dryer, or lay out on a drying rack."
+          )
+        ]
+      ),
     ]
   }
 
