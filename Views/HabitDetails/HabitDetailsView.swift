@@ -66,7 +66,7 @@ struct HabitDetailsView: View {
     GroupBox("Steps") {
       if #available(iOS 17.0, *) {
         TipView(HabitDetailsStepsTip(), arrowEdge: .bottom)
-          .tipImageSize(CGSize(width: 35, height: 35))
+          .habitTipStyle()
       }
 
       ForEach(Array(habit.steps.enumerated()), id: \.offset) { id, step in

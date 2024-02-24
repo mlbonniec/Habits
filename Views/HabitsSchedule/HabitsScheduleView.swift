@@ -38,7 +38,7 @@ struct HabitsScheduleView: View {
 
         if #available(iOS 17.0, *) {
           TipView(HabitsSchedulePickerTip(), arrowEdge: .top)
-            .tipImageSize(CGSize(width: 30, height: 30))
+            .habitTipStyle()
         }
 
         ForEach(selectedDays) { day in
