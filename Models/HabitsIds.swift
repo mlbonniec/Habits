@@ -13,6 +13,7 @@ enum HabitsIds: String, Identifiable, PersistableEnum {
   case takeMedication = "Take medication"
   case prepareFood = "Cook a recipe"
   case washingClothes = "Washing clothes"
+  case cleaningTheHouse = "Cleaning the house"
 
   var id: String {
     self.rawValue
@@ -57,5 +58,10 @@ enum HabitsIds: String, Identifiable, PersistableEnum {
     case washingClothesSelectWashingCycle
     case washingClothesStart
     case washingClothesDry
+
+    // MARK: cleaningTheHouse
+    case cleaningTheHouseFeatherDuster
+    case cleaningTheHouseVacuumCleaner
+    case cleaningTheHouseWindows
   }
 }

@@ -183,6 +183,28 @@ enum HabitsMapper {
           )
         ]
       ),
+      HabitsModel(
+        id: .cleaningTheHouse,
+        systemImage: "window.ceiling",
+        description: "Windows, dust, vacuum",
+        steps: [
+          HabitsModel.Step(
+            id: .cleaningTheHouseWindows,
+            label: "Wash windows",
+            description: "Use window cleaner and wipe with a cloth."
+          ),
+          HabitsModel.Step(
+            id: .cleaningTheHouseFeatherDuster,
+            label: "Remove dust",
+            description: "Duster your furnitures."
+          ),
+          HabitsModel.Step(
+            id: .cleaningTheHouseVacuumCleaner,
+            label: "Vacuum",
+            description: "Don't forget the tops of baseboards, nooks and crannies, etc."
+          )
+        ]
+      ),
     ]
   }
 
