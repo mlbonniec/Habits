@@ -41,6 +41,16 @@ struct HabitsOnBoarding: OnBoarding {
     ]
   }
 
+  var notice: Notice? {
+    Notice(
+      text: Text("This playground has been made for the 2024 Swift Student Challenge."),
+      link: OnBoardingKit.Notice.Link(
+        title: Text("Learn more."),
+        url: URL(string: "https://developer.apple.com/swift-student-challenge")
+      )
+    )
+  }
+
   var button: Text {
     Text("Continue")
   }

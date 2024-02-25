@@ -55,6 +55,9 @@ struct ContentView: View {
     }
     .task {
       if #available(iOS 17.0, *) {
+        // MARK: Demo purpose only
+        try? Tips.resetDatastore()
+
         try? Tips.configure([
           .displayFrequency(.immediate),
           .datastoreLocation(.applicationDefault)
@@ -63,6 +66,9 @@ struct ContentView: View {
     }
     .onAppear {
       NotificationsHelper.resetBadgeCount()
+
+      // MARK: Demo purpose only
+      OnBoardingKit.resetDatastore()
     }
     .sheet(item: $notificationDelegate.shownDetails) { id in
       if let habit = HabitsMapper.mapById(id: id) {
