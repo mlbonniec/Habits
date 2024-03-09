@@ -13,19 +13,17 @@ struct HabitsListView: View {
 
   // MARK: Body
   var body: some View {
-    List {
-      ForEach(habits) { habit in
-        ViewLink(destination: {
-          HabitDetailsFactory.createView(habit: habit)
-        }) {
-          HabitsListRowView(
-            systemImage: habit.systemImage,
-            label: habit.id.rawValue,
-            description: habit.description
-          )
-        }
-        .habitListRow()
+    List(habits) { habit in
+      ViewLink(destination: {
+        HabitDetailsFactory.createView(habit: habit)
+      }) {
+        HabitsListRowView(
+          systemImage: habit.systemImage,
+          label: habit.id.rawValue,
+          description: habit.description
+        )
       }
+      .habitListRow()
     }
     .habitList()
     .backgroundGradient()
